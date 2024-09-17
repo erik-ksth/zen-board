@@ -64,7 +64,6 @@ export default function RightPage() {
 
      return (
           <div className="w-full h-full p-6 bg-white rounded-r-lg">
-               Hello
                {noSchedule ? (
                     <div className="w-full h-full">
                          {
