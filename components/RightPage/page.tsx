@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Loader from "../Loader";
+// import Loader from "../Loader";
 import runScheduler from "@/app/api/generate-schedule";
 import Schedule from "./RightPageComponents/Schedule";
 
@@ -64,12 +64,13 @@ export default function RightPage() {
 
      return (
           <div className="w-full h-full p-6 bg-white rounded-r-lg">
+               Hello
                {noSchedule ? (
                     <div className="w-full h-full">
                          {
                               loading ? (
                                    <div className="w-full h-full flex flex-col justify-center items-center gap-5">
-                                        <Loader />
+                                        {/* <Loader /> */}
                                         <h1>Tailoring your Timeline...</h1>
                                    </div>
                               ) : (
