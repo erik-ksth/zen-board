@@ -46,7 +46,7 @@ async function runScheduler(tasks: string[]): Promise<string> {
   });
 
   const result = await chat.sendMessage(
-    `Please generate a productive day schedule for me, only for one day. I need the schedule in the EXACT format "HH:mm-HH:mm$task%" (24 hrs format, '%' is the most IMPORTANT!). Do not include any additional information or descriptions—only the time and task in this EXACT format. You can add an emoji to each task name. Please schedule for the whole day including meals and usual habit reminders. Please follow the time as user preference if the task name includes the time. Here are the tasks: ${tasks.join(
+    `Please generate a productive day schedule for me, only for one day. I need the schedule in the EXACT format "HH:mm-HH:mm$task%" (24 hrs format, '%' is the most IMPORTANT!). Do not include any additional information or descriptions—only the time and task in this EXACT format. You can add an emoji to each task name. Please schedule for the whole day including meals and usual habit reminders, but prioritize user's tasks. Here are the tasks: ${tasks.join(
       ", "
     )}`
   );
