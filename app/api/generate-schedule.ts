@@ -1,66 +1,51 @@
-import {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-  GenerationConfig,
-  SafetySetting,
-} from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
-const MODEL_NAME = "gemini-1.5-pro-001";
+const MODEL_NAME = "gemma-3-27b-it";
 const API_KEY = process.env.NEXT_PUBLIC_GENAI_API_KEY as string;
 
 async function runScheduler(tasks: string[]): Promise<string> {
-  const genAI = new GoogleGenerativeAI(API_KEY);
-  const model = genAI.getGenerativeModel({ model: MODEL_NAME });
+  const ai = new GoogleGenAI({
+    apiKey: API_KEY,
+  });
 
-  const generationConfig: GenerationConfig = {
-    temperature: 0.9,
-    topK: 1,
-    topP: 1,
-    maxOutputTokens: 2048,
+  const config = {
+    responseMimeType: "text/plain",
   };
 
-  const safetySettings: SafetySetting[] = [
+  const prompt = `Please generate a productive day schedule for me, only for one day. I need the schedule in the EXACT format "HH:mm-HH:mm$task%" (24 hrs format, '%' is the most IMPORTANT!). Do not include any additional information or descriptions—only the time and task in this EXACT format. You can add an emoji to each task name. Please schedule for the whole day including meals and usual habit reminders, but prioritize user's tasks. Here are the tasks: ${tasks.join(
+    ", "
+  )}`;
+
+  const contents = [
     {
-      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      role: "user",
+      parts: [
+        {
+          text: prompt,
+        },
+      ],
     },
   ];
 
-  const chat = model.startChat({
-    generationConfig,
-    safetySettings,
-    history: [],
+  const response = await ai.models.generateContentStream({
+    model: MODEL_NAME,
+    config,
+    contents,
   });
 
-  const result = await chat.sendMessage(
-    `Please generate a productive day schedule for me, only for one day. I need the schedule in the EXACT format "HH:mm-HH:mm$task%" (24 hrs format, '%' is the most IMPORTANT!). Do not include any additional information or descriptions—only the time and task in this EXACT format. You can add an emoji to each task name. Please schedule for the whole day including meals and usual habit reminders, but prioritize user's tasks. Here are the tasks: ${tasks.join(
-      ", "
-    )}`
-  );
-
-  let response = result.response.text();
-
-  const match = response.match(/\{[\s\S]*\}/);
-  if (match) {
-    response = match[0];
+  let fullResponse = "";
+  for await (const chunk of response) {
+    fullResponse += chunk.text;
   }
 
-  console.log("Res: ", response);
+  const match = fullResponse.match(/\{[\s\S]*\}/);
+  if (match) {
+    fullResponse = match[0];
+  }
 
-  return response;
+  console.log("Res: ", fullResponse);
+
+  return fullResponse;
 }
 
 export default runScheduler;
