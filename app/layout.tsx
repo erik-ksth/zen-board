@@ -41,8 +41,8 @@ export default function RootLayout({
         className={`${fuzzyBubbles.className} antialiased`}
       >
         <div className="w-screen h-screen flex justify-center items-center p-5">
-          <div className="w-full h-full max-w-screen-2xl max-h-[1000px] bg-black rounded-[3rem] p-5">
-            <div className="w-full h-full border-2 border-spacing-6 border-white border-dashed rounded-[2rem] p-7 flex">
+          <div className="w-full h-full max-w-screen-2xl max-h-[1000px] bg-black rounded-[3.5rem] p-6">
+            <div className="w-full h-full rounded-[2.5rem] p-7 flex book-border">
               {children}
               <h1 className="uppercase absolute bottom-0 right-0 text-[20em] font-extrabold text-zinc-100 font-sans -z-10">ZenBoard</h1>
               <h1 className="uppercase absolute top-0 left-0 text-[20em] font-extrabold text-zinc-100 font-sans -z-10">ZenBoard</h1>

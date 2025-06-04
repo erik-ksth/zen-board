@@ -96,3 +96,41 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
   visibility: hidden;
 }
+
+.book-border {
+  background-image: repeating-linear-gradient(
+      0deg,
+      #ffffff,
+      #ffffff 30px,
+      transparent 30px,
+      transparent 55px,
+      #ffffff 55px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #ffffff,
+      #ffffff 20px,
+      transparent 20px,
+      transparent 35px,
+      #ffffff 35px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      #ffffff,
+      #ffffff 20px,
+      transparent 20px,
+      transparent 35px,
+      #ffffff 35px
+    ),
+    repeating-linear-gradient(
+      270deg,
+      #ffffff,
+      #ffffff 20px,
+      transparent 20px,
+      transparent 35px,
+      #ffffff 35px
+    );
+  background-size: 2px 100%, 100% 2px, 2px 100%, 100% 2px;
+  background-position: 0 0, 0 0, 100% 0, 0 100%;
+  background-repeat: no-repeat;
+}
