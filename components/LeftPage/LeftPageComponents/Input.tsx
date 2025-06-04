@@ -65,13 +65,13 @@ export default function Input() {
      }
 
      return (
-          <div className="w-full h-[85%] my-5 px-2 cursor-pointer" onClick={handleTaskBoxClick}>
+          <div className="w-full h-[85%] my-5 cursor-pointer" onClick={handleTaskBoxClick}>
                <div className="h-full overflow-y-scroll hide-scrollbar">
                     {tasks.length > 0 ? (
                          tasks.map((task, index) => (
-                              <li className="flex w-full my-5 border-b border-zinc-400" key={index}>
+                              <li className="flex w-full px-2 my-5 border-b border-zinc-300" key={index}>
                                    <button
-                                        className="mr-2 text-xs"
+                                        className="mr-4 text-xs"
                                         onClick={(e) => {
                                              e.stopPropagation(); // Stop event propagation
                                              removeTask(index);

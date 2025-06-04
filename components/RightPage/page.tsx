@@ -4,6 +4,13 @@ import { useEffect, useState } from "react";
 // import Loader from "../Loader";
 import runScheduler from "@/app/api/generate-schedule";
 import Schedule from "./RightPageComponents/Schedule";
+import localFont from "next/font/local";
+
+const freckleFace = localFont({
+     src: "../../app/fonts/Freckle_Face/FreckleFace-Regular.ttf",
+     variable: "--font-freckle-face",
+     weight: "400 500 600 700",
+})
 
 export default function RightPage() {
 
@@ -74,11 +81,11 @@ export default function RightPage() {
                                    </div>
                               ) : (
                                    <div className="relative w-full h-[55%] p-6 text-center flex flex-col justify-end items-center bg-white rounded-r-lg">
-                                        <h1 className="uppercase font-extrabold text-5xl">Zen Board</h1>
-                                        <p className="mt-2 text-2xl">Streamline Your Day With <b>AI</b></p>
+                                        <h1 className={`${freckleFace.className} uppercase font-extrabold text-6xl`}>Zen Board</h1>
+                                        <p className="mt-2 text-xl">Streamline Your Day With <b>AI</b></p>
                                         <p className="mt-20">Ready to be productive?</p>
                                         <button
-                                             className="mt-5 px-7 py-2 bg-zinc-200 hover:bg-zinc-600 hover:text-white border border-black rounded-md"
+                                             className="mt-2 px-7 py-2 bg-zinc-200 hover:bg-zinc-600 hover:text-white border border-black rounded-md"
                                              onClick={handleGetStarted}
                                         >
                                              Get Started

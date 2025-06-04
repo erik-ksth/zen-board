@@ -56,6 +56,10 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontFamily: {
+        freckleFace: ["var(--font-freckle-face)"],
+        fuzzyBubbles: ["var(--font-fuzzy-bubbles)"],
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

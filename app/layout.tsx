@@ -13,9 +13,15 @@ import "./globals.css";
 //   weight: "100 900",
 // });
 
-const edu = localFont({
-  src: "./fonts/EduVICWANTBeginner-VariableFont_wght.ttf",
-  variable: "--font-edu",
+// const edu = localFont({
+//   src: "./fonts/EduVICWANTBeginner-VariableFont_wght.ttf",
+//   variable: "--font-edu",
+//   weight: "400 500 600 700",
+// })
+
+const fuzzyBubbles = localFont({
+  src: "./fonts/Fuzzy_Bubbles/FuzzyBubbles-Regular.ttf",
+  variable: "--font-fuzzy-bubbles",
   weight: "400 500 600 700",
 })
 
@@ -32,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${edu.className} antialiased`}
+        className={`${fuzzyBubbles.className} antialiased`}
       >
         <div className="w-screen h-screen flex justify-center items-center p-5">
           <div className="w-full h-full max-w-screen-2xl max-h-[1000px] bg-black rounded-[3rem] p-5">
