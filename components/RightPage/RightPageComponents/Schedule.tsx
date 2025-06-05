@@ -91,13 +91,37 @@ export default function Schedule() {
           setError(null);  // Clear the error message when input changes
      };
 
+     // Helper function to convert time string to Date object
+     const timeStringToDate = (timeStr: string) => {
+          const now = new Date();
+          const [hours, minutes] = timeStr.split(':').map(Number);
+          return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+     };
+
+     // Function to determine if a task is current
+     const isCurrentTask = (task: Task) => {
+          const now = new Date();
+          const startTime = timeStringToDate(task.startTime);
+          const endTime = timeStringToDate(task.endTime);
+          return now >= startTime && now <= endTime;
+     };
+
+     // Function to determine if a task is past
+     const isPastTask = (task: Task) => {
+          const now = new Date();
+          const endTime = timeStringToDate(task.endTime);
+          return now > endTime;
+     };
+
      return (
           <div className='relative w-full h-full text-center'>
-               <button className="absolute top-0 right-0 text-sm text-zinc-500" onClick={clearSchedule}>
-                    Clear Schedule
-               </button>
+               <div className='flex flex-row justify-between w-full items-center'>
+                    <h1 className='font-bold text-xl'>Hope you have a productive day!</h1>
 
-               <h1 className='font-bold text-xl'>Here is a productive schedule for you!</h1>
+                    <button className="text-sm text-zinc-500" onClick={clearSchedule}>
+                         Clear Schedule
+                    </button>
+               </div>
 
                {/* Schedule Box */}
                <div className='flex flex-col gap-y-4 w-full h-[95%] pt-10 overflow-y-scroll hide-scrollbar'>
@@ -105,7 +129,12 @@ export default function Schedule() {
                          <p>No schedule found. Please create one!</p>
                     ) : (
                          schedule.map((task) => (
-                              <div key={task.id} className='flex flex-col justify-center items-center w-full p-5 bg-zinc-100 rounded-lg'>
+                              <div
+                                   key={task.id}
+                                   className={`flex flex-col justify-center items-center w-full p-5 bg-zinc-100 rounded-2xl
+                                        ${isCurrentTask(task) ? 'border-2 border-black' : ''}
+                                        ${isPastTask(task) ? 'opacity-50' : ''}`}
+                              >
                                    {editTaskId === task.id ? (
                                         <div className='flex flex-col justify-start w-full items-start gap-y-2'>
                                              <input
